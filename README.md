@@ -46,31 +46,31 @@ Choose one.
 But before you click 'READY' button you must run appropriate async server. Look at folders - they named
 exactly as options. Now I should tell you how to run each of those servers.
 
-	* Node.js + Socket.IO. To run this you should have Node installed.
-	```bash
-	cd node-socketio
-	npm install
-	node server.js
-	```
-	Now you have node server on port 8001.
+* Node.js + Socket.IO. To run this you should have Node installed.
+```bash
+cd node-socketio
+npm install
+node server.js
+```
+Now you have node server on port 8001.
 	
-	* Node.js + Sock.js. Same as Node + Socket.IO.
-	
-	* Tornado + Socket.IO
-	```bash
-	cd tornado-sockeio
-	pip install -r requirements.txt
-	python server.py
-	```
-	
-	* Tornado + Sock.js. Same as Tornado + Socket.IO
-	
-	* Cyclone + Eventsource.
-	```bash
-	cd cyclone-eventsource
-	pip install -r requirements.txt
-	bash server.sh
-	```
+* Node.js + Sock.js. Same as Node + Socket.IO.
+
+* Tornado + Socket.IO
+```bash
+cd tornado-sockeio
+pip install -r requirements.txt
+python server.py
+```
+
+* Tornado + Sock.js. Same as Tornado + Socket.IO
+
+* Cyclone + Eventsource.
+```bash
+cd cyclone-eventsource
+pip install -r requirements.txt
+bash server.sh
+```
 
 4) After running appropriate async server you can click on button 'READY' and proceed to chat. Chat behaviour is the same for any of options selectedв
 
