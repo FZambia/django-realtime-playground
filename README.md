@@ -41,7 +41,7 @@ Go to `http://localhost:8000` and make sure that everything works.
 3) As you can see after successful login into Django site - you can choose one of options how chat will work.
 Choose one.
 
-![home](home.png "home page")
+![home](https://raw.github.com/FZambia/django-realtime-playground/master/home.png "home page")
 
 But before you click 'READY' button you must run appropriate async server. Look at folders - they named
 exactly as options. Now I should tell you how to run each of those servers.
@@ -74,7 +74,7 @@ exactly as options. Now I should tell you how to run each of those servers.
 
 4) After running appropriate async server you can click on button 'READY' and proceed to chat. Chat behaviour is the same for any of options selectedв
 
-![chat](chat.png "chat page")
+![chat](https://raw.github.com/FZambia/django-realtime-playground/master/chat.png "chat page")
 
 By default every async server will run on port 8001, but you can easily change in in code. But do not forget to change `ASYNC_BACKEND_URL` in Django's `settings.py`
 
