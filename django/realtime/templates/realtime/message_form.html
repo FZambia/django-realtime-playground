@@ -1,0 +1,27 @@
+{% load url from future %}
+
+<form enctype="multipart/form-data" method="POST" action="">
+	 {% csrf_token %}
+	 {% if form.non_field_errors %}
+	     <span class="error">{{form.non_field_errors}}</span>
+	 {% endif %}
+	 <div>
+	    {% for field in form %}
+	    <div>
+	       <div>
+	            {% if not field.is_hidden %}
+	                {{field.label_tag}}
+	            {% endif %}
+	       </div>
+	       <div>
+	            {{field}}
+	       </div>
+	       <div>
+	            <span class="form-error" id="{{field.name}}_error">{{field.errors}}</span>
+	       </div>
+	    </div>
+	    {% endfor %}
+	</div>
+	<button type="submit">Save</button>
+	<a href="{% url 'realtime_message_list' %}">Cancel</a>
+ </form>

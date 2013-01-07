@@ -1,0 +1,187 @@
+{% extends 'realtime/message_base.html' %}
+
+{% load url from future %}
+
+{% block extra_head %}
+
+{% if request.GET.choice == 'node+sockjs' or request.GET.choice == 'tornado+sockjs' %}
+    <script src="http://cdn.sockjs.org/sockjs-0.3.2.min.js"></script>
+{% elif request.GET.choice == 'cyclone+eventsource' %}
+    <script type="text/javascript" src="https://raw.github.com/FZambia/cyclone-sse/master/media/jquery.eventsource.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/FZambia/cyclone-sse/master/media/jquery.sse.js"></script>
+{% else %}
+    <script src="{{async_url}}/socket.io/socket.io.js"></script>
+{% endif %}
+
+<script type="text/javascript">
+	(function($) {
+		$(function() {
+
+			var token = "{{csrf_token}}";
+			var messageTmpl = $('#messageTemplate');
+			var container = $('#log');
+			var input = $('#input-text');
+
+			var createMessage = function(message, is_append) {
+				var append = is_append || false;
+				var html = messageTmpl.render(message);
+				if (append === true) {
+					container.append(html);
+				} else {
+					container.prepend(html);
+				}
+			}
+			var deleteMessage = function(id) {
+				$('.message[data-id="' + id + '"]').fadeOut(function() {
+					$(this).remove();
+				});
+			}
+			{% if request.GET.choice == 'node+sockjs' or request.GET.choice == 'tornado+sockjs' %}
+				var sockjs = new SockJS('{{async_url}}/sockjs');
+				sockjs.onopen = function() {
+					console.log('[*] open', sockjs.protocol);
+				};
+				sockjs.onmessage = function(e) {
+					console.log(e);
+					{% if request.GET.choice == 'node+sockjs' %}
+					data = JSON.parse(e.data);
+					var eventType = data[0];
+					var eventData = data[1];
+					{% else %}
+					var eventType = e.data.event;
+					var eventData = JSON.parse(e.data.data);
+					{% endif %}
+					if (eventType == 'message-create') {
+						createMessage(eventData);
+					} else if (eventType == 'message-delete') {
+						deleteMessage(eventData);
+					}
+				};
+				sockjs.onclose = function() {
+					console.log('[*] close');
+				};
+			{% elif request.GET.choice == 'node+socketio' %}
+				var socket = io.connect('{{async_url}}');
+				socket.on('message', function(data) {
+					console.log(data);
+				});
+				socket.on('message-create', function(data) {
+					console.log(data);
+					createMessage(data);
+				});
+				socket.on('message-delete', function(data) {
+					deleteMessage(data);
+				});
+			{% elif request.GET.choice == 'tornado+socketio' %}
+				var socket = io.connect('{{async_url}}');
+				socket.on('message', function(data) {
+					var eventType = data.event;
+					var eventData = data.data;
+					if (eventType == 'message-create') {
+						createMessage(eventData);
+					} else if (eventType == 'message-delete') {
+						deleteMessage(eventData);
+					}
+				});
+			{% elif request.GET.choice == 'cyclone+eventsource' %}
+				var sseEventPrefix = 'sse.';
+				// activate sse plugin to collect channels and to make a single connection to the server
+				$.sse({
+					url : '{{async_url}}/sub',
+					selector : '.sse',
+					debug : true,
+					eventPrefix : sseEventPrefix
+				});
+	
+				// bind our sse event to general handler
+				var handler = $('#general_handler');
+				//var generalEvent = sseEventPrefix + generalHandler.attr("data-sse-channels");
+				handler.on('sse.message-create', function(event, data) {
+					createMessage(JSON.parse(data));
+				});
+				handler.on('sse.message-delete', function(event, data) {
+					deleteMessage(data);
+				});
+			{% endif %}
+
+			// render all messages from database
+			{% for object in object_list %}
+				var message = {
+					"id" : "{{object.pk}}",
+					"user" : "{{object.user.username}}",
+					"text" : "{{object.text|linebreaksbr}}",
+					"url_delete" : "{% url 'realtime_message_delete' pk=object.pk %}"
+				}
+				createMessage(message, true);
+			{% endfor %}
+
+			input.on('keyup', function(event) {
+				if (event.keyCode == 13) {
+					var value = $.trim($(this).val());
+					if (value == '') {
+						return;
+					}
+					var data = {
+						'csrfmiddlewaretoken' : token,
+						"text" : value,
+						"user" : "{{user.id}}"
+					};
+					$.post("{% url 'realtime_message_create' %}", data, function(data) {
+						if (data.status === 'ok') {
+							$.noop;
+						}
+					}, "json");
+					$(this).val('');
+				}
+			})
+
+			container.on('click', '.message-delete', function() {
+				var self = $(this);
+				var url = self.find('a').attr('href');
+				var data = {
+					'csrfmiddlewaretoken' : token
+				};
+				$.post(url, data, function() {
+					if (data.status === 'ok') {
+						$.noop;
+					}
+				}, "json");
+				return false;
+			});
+
+		})
+	})(jQuery)
+</script>
+{% endblock %}
+
+
+{% block js_templates %}
+
+    {% load realtime_tags %}
+
+    {% verbatim %}
+      <script type="text/x-jsrender" id="messageTemplate">
+        <div class="message" data-id="{{>id}}">
+          <span class="message-author">{{>user}}</span> said: 
+          <span class="message-text">{{>text}}</span>
+          <span class="message-delete"><a href="{{>url_delete}}" class="message-delete-image">&nbsp;</a></span>
+        </div>
+      </script>
+    {% endverbatim %}
+
+{% endblock %}
+
+{% block content %}
+    {% if request.GET.choice == 'cyclone+eventsource' %}
+    	<div class="sse" id="general_handler" data-sse-channels="chat" data-sse-events="message-create,message-delete" style="display:none;">&nbsp;</div>   
+    {% endif %}
+
+    <a id="home" href="{% url 'login' %}" class="nav" />Home</a>
+    <a id="logout" href="{% url 'logout' %}" class="nav" />Logout</a>
+    <div id="content">
+        <div id="input">
+            <input type="text" id="input-text" placeholder="type new message and press ENTER..." />
+        </div>
+        <div id="log"></div>
+    </div>
+{% endblock %}

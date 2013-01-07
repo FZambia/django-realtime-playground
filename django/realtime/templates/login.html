@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+    <div id="login">
+        {% if not user.is_authenticated %}
+        <form method="POST" action="{% url "login" %}">
+            {% csrf_token %}
+            <span class="error">{{form.non_field_errors}}</span>
+            {% for field in form %}
+                <div>
+                    {{field.label_tag}}
+                    {{ field }}
+                    <span class="error">{{field.errors}}</span>
+                </div>
+            {% endfor %}
+            <input type="hidden" name="next" value="{% if request.GET.next %}{{request.GET.next}}{% else %}/{% endif %}" />
+            <div style="text-align:center;margin-top:10px;">
+                <button type="submit" class="btn btn-info" name="subm" />Sign In</button>
+            </div>
+        </form>
+        {% else %}
+            <a id="logout" href="{% url 'logout' %}" class="nav" />Logout</a>
+            <div class="center">
+                <h2>Welcome to Django Realtime</h2>
+                <br />
+                <form method="GET" action="{% url "realtime_message_list" %}">
+                    <label class="left">Choose client library:</label>
+                    <select id="select-lib" name="choice">
+                        <option value="node+socketio">node + socket.io</option>
+                        <option value="node+sockjs">node + sock.js</option>
+                        <option value="tornado+socketio">tornado + socket.io</option>
+                        <option value="tornado+sockjs">tornado + sock.js</option>
+                        <option value="cyclone+eventsource">cyclone + eventsource</option>
+                    </select>
+                    <br /><br />
+                    <label class="left">Do not forget to turn appropriate asynchronous backend on!</label>
+                    <br />
+                    <button type="submit" class="btn btn-success" />Ready</a>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{
+  "name": "node-socketio-django-realtime-playground",
+  "version": "0.0.1",
+  "description": "Server on Socket.IO",
+  "author": "Emelin Alexandr <frvzmb@gmail.com>",
+  "dependencies": {
+    "socket.io": ">= 0.9.13"
+  },
+  "engine": "node >= 0.6.15"
+}

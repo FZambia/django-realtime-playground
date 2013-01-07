@@ -1,0 +1,126 @@
+body {
+    background: url("../img/background.jpg") repeat scroll left top white;
+}
+html {
+    height: 100%;
+}
+#content {
+    margin: 0 auto;
+    width: 70%;
+    padding: 10px;
+}
+#log {
+    color: #CCC;
+}
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    padding-right: 30px
+}
+.message-text {
+    font-size: 1.4em;
+    color: white;
+}
+#input {
+
+}
+#input-text {
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 3px #808080 inset;
+    font-size: 30px;
+    height: 50px;
+    width: 100%;
+    line-height: 1.2em;
+    line-height: 26px\9; /*for IE */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#select-lib {
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 3px #808080 inset;
+    font-size: 30px;
+    height: 50px;
+    width: 100%;
+    line-height: 1.2em;
+    line-height: 26px\9; /*for IE */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+}
+.message-delete {
+    position:absolute;
+    right: 3px;
+    top:3px;
+}
+.message-delete a {
+    color: red;
+    text-decoration: none;
+}
+.message-delete a:hover {
+    text-decoration: none;
+}
+.message-delete-image {
+    width: 24px;
+    height: 24px;
+    background-image: url('../img/delete.png');
+    display: inline-block;
+}
+#login {
+    margin: 0 auto;
+    margin-top: 60px;
+    width: 40%;
+    min-width: 300px;
+    color: white;
+}
+#login input[type="text"], #login input[type="password"] {
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 3px #808080 inset;
+    font-size: 30px;
+    height: 50px;
+    padding: 0 7px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
+}
+#login .btn {
+    font-size: 30px;
+    padding: 15px;
+}
+#login label {
+    color: #FFE5FF;
+    font-size: 20px;
+}
+.center {
+    text-align: center;
+}
+.left {
+    text-align: left;
+}
+.nav {
+    font-size: 16px;
+    padding: 12px;
+    max-width:10%;
+    color: white;
+    overflow: hidden;
+}
+.nav:hover {
+    color: white;
+}
+#home {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+#logout {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

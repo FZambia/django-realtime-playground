@@ -1,0 +1,12 @@
+{% extends 'realtime/message_base.html' %}
+
+{% load url from future %}
+
+{% block extra_head %}{% endblock %}
+
+{% block content %}
+	<div>
+		<a href="{% url 'realtime_message_list' %}">back to message list</a>
+	</div>
+	{% include 'realtime/message_form.html' %}
+{% endblock %}

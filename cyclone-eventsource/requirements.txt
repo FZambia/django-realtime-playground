@@ -1,0 +1,7 @@
+zope.interface==4.0.3
+Twisted==12.3.0
+cyclone==1.0
+cyclone-sse==0.7.3
+pyOpenSSL==0.13
+txAMQP==0.6.1
+wsgiref==0.1.2

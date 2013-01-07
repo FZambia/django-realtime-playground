@@ -1,0 +1,10 @@
+{
+  "name": "node-sockjs-django-realtime-playground",
+  "version": "0.0.1",
+  "description": "Server on Sock.js",
+  "author": "Emelin Alexandr <frvzmb@gmail.com>",
+  "dependencies": {
+    "sockjs": ">= 0.3.2"
+  },
+  "engine": "node >= 0.6.15"
+}
