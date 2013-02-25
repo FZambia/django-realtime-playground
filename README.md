@@ -76,7 +76,7 @@ bash server.sh
 
 ![chat](https://raw.github.com/FZambia/django-realtime-playground/master/chat.png "chat page")
 
-By default every async server will run on port 8001, but you can easily change in in code. But do not forget to change `ASYNC_BACKEND_URL` in Django's `settings.py`
+By default every async server will run on port 8001, but you can easily change it in code. But do not forget to change `ASYNC_BACKEND_URL` in Django's `settings.py`
 
 How it works.
 -------------
