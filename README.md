@@ -1,7 +1,10 @@
 Django Realtime Playground
 ==========================
 
-This is a set of experiments with different modern realtime libraries and asynchronous servers/frameworks together with Django.
+This is a set of experiments with different modern realtime libraries and
+asynchronous servers/frameworks together with Django. Personally I suggest using
+[Centrifuge](https://github.com/centrifugal/centrifuge) to add real-time on your
+Django site.
 
 Includes:
 
@@ -32,8 +35,17 @@ cd django-realtime-playground
 ```bash
 pip install -r django/requirements.txt
 cd django
+# for django < 1.7
 python manage.py syncdb
-python manage.py runserver	
+# for django >= 1.7 use migrate command
+# python manage.py migrate
+```
+
+Create new superuser and run server:
+
+```bash
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 Go to `http://localhost:8000` and make sure that everything works.

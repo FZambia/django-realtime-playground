@@ -1,11 +1,12 @@
 #coding: utf-8
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.utils import simplejson as json
+
+import json
 import urllib
 import urllib2
-from django.conf import settings
 
 
 def send_event(event_type, event_data):

@@ -2,10 +2,11 @@
 from django.views import generic
 from django.core.urlresolvers import reverse
 from realtime import models
-from django.utils import simplejson as json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
+
+import json
 
 
 class MessageListView(generic.ListView):

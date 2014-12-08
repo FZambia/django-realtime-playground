@@ -1,5 +1,5 @@
 # coding: utf-8
-from django.conf.urls.defaults import patterns, url, include
+from django.conf.urls import patterns, url, include
 import realtime.views as views
 from django.contrib.auth.decorators import login_required
 
