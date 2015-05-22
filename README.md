@@ -3,7 +3,7 @@ Django Realtime Playground
 
 This is a set of experiments with different modern realtime libraries and
 asynchronous servers/frameworks together with Django. Personally I suggest using
-[Centrifuge](https://github.com/centrifugal/centrifuge) to add real-time on your
+[Centrifugo](https://github.com/centrifugal/centrifugo) to add real-time on your
 Django site.
 
 Includes:
