@@ -1,7 +1,7 @@
 Django Realtime Playground
 ==========================
 
-This is a set of experiments with different modern realtime libraries and
+This is a set of experiments with various modern realtime libraries and
 asynchronous servers/frameworks together with Django. **Personally I suggest using
 [Centrifugo](https://github.com/centrifugal/centrifugo) to add real-time on your
 Django site as most of solutions here is just a showcase**
